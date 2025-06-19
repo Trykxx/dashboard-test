@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Exception;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Arr;
 
@@ -34,7 +35,10 @@ class CarFactory extends Factory
             "transmission" =>  Arr::random($transmissions),
             "prix" =>  fake()->randomFloat(2, 5000, 100000),
             "kilometrage" =>  fake()->numberBetween(0, 200000),
-            "description" =>  fake()->sentence(10)
+            "description" =>  fake()->sentence(10),
+            "image_path" => function () {
+                return 'https://picsum.photos/640/480?car' . '?id=' . fake()->uuid();
+            },
         ];
     }
 }

@@ -20,5 +20,15 @@ class Car extends Model
         "prix",
         "kilometrage",
         "description",
+        'image_path'
     ];
+
+    // Getter image
+    public function getImageUrl()
+    {
+        if ($this->image_path) {
+            return asset("storage/" . $this->image_path);
+        }
+        return asset('assets/images/cars/default-car.jpg');
+    }
 }

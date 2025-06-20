@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CarsFormRequest;
 use App\Models\Car;
 use Illuminate\Http\Request;
 
@@ -26,10 +27,19 @@ class CarController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CarsFormRequest $request)
     {
-        Car::create($request->all());
-        return redirect()->route('home')->with('success', 'Voiture ajoutée avec succès !');
+        // Les données sont déjà validées à ce stade
+        $validated = $request->validated();
+
+        if ($request->hasFile('image_path')) {
+            $path = $request->file('image_path')->store('public/voitures');
+            $validated['image_path'] = str_replace('public/', '', $path);
+        }
+
+        Car::create($validated);
+
+        return redirect()->route('cars.index')->with('success', 'Voiture ajoutée avec succès !');
     }
 
     /**

@@ -31,3 +31,5 @@ Route::put('/cars/{car}', [CarController::class, 'update'])->name('cars.update')
 Route::patch('/cars/{car}', [CarController::class, 'update'])->name('cars.update');
 
 Route::delete('/cars/{car}', [CarController::class, 'destroy'])->name('cars.destroy');
+
+Route::get('/cars/ajax-search', [\App\Http\Controllers\HomeController::class, 'ajaxSearch'])->name('cars.ajax-search');

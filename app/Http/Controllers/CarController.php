@@ -9,14 +9,6 @@ use Illuminate\Http\Request;
 class CarController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      */
     public function create()
@@ -72,8 +64,20 @@ class CarController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Car $car)
     {
-        //
+        // dd($car->image_path);
+
+        $relativeStoragePath = 'public/' . $car->image_path;
+
+        $file = storage_path('app/' . $relativeStoragePath);
+
+        if (file_exists($file)) {
+            unlink($file);
+        }
+
+        $car->delete();
+
+        return redirect()->route('home')->with('danger', 'Voiture supprimée avec succès !');
     }
 }

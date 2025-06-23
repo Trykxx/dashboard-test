@@ -29,3 +29,5 @@ Route::get('/cars/{car}', [CarController::class, 'show'])->name('cars.show');
 Route::get('/cars/edit/{car}', [CarController::class, 'edit'])->name('cars.edit');
 Route::put('/cars/{car}', [CarController::class, 'update'])->name('cars.update');
 Route::patch('/cars/{car}', [CarController::class, 'update'])->name('cars.update');
+
+Route::delete('/cars/{car}', [CarController::class, 'destroy'])->name('cars.destroy');

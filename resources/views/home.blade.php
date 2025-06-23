@@ -13,7 +13,7 @@
                 <!-- Page title actions -->
                 <div class="col-12 col-md-auto ms-auto d-print-none">
                     <div class="btn-list">
-                        <a href={{ route("cars.create")}} class="btn btn-primary d-none d-sm-inline-block">
+                        <a href={{ route('cars.create') }} class="btn btn-primary d-none d-sm-inline-block">
                             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -40,7 +40,7 @@
             </div>
         </div>
     </div>
-    <!-- Page body -->
+    @include('shared.flash')
     <div class="page-body">
         <div class="container-xl">
             <div class="row row-deck row-cards">
@@ -99,7 +99,7 @@
                                             <td><input class="form-check-input m-0 align-middle" type="checkbox"
                                                     aria-label="Select invoice"></td>
                                             <td><span class="text-muted">{{ $car->id }}</span></td>
-                                            <td><a href="{{ route('cars.show', $car->id)}}" class="text-reset"
+                                            <td><a href="{{ route('cars.show', $car->id) }}" class="text-reset"
                                                     tabindex="-1">{{ $car->marque }}</a></td>
                                             <td>{{ $car->modele }}</td>
                                             <td>{{ $car->annee }}</td>
@@ -112,15 +112,25 @@
                                             <td>{{ Str::limit($car->description, 50) }}</td>
                                             <td>{{ $car->created_at }}</td>
                                             <td>{{ $car->updated_at }}</td>
-                                            <td><a href="{{ route('cars.edit', $car->id) }}" class="btn btn-primary">Modifier</a></td>
-                                            <td><a href="home" class="btn btn-danger">Supprimer</a></td>
+                                            <td><a href="{{ route('cars.edit', $car->id) }}"
+                                                    class="btn btn-primary">Modifier</a></td>
+                                            <td>
+                                                <form action="{{ route('cars.destroy', $car) }}" method="POST"
+                                                    onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce véhicule ?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger">
+                                                        Supprimer
+                                                    </button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
                         <div class="card-footer d-flex align-items-center">
-                             {!! $cars->links('tablar::pagination') !!}
+                            {!! $cars->links('tablar::pagination') !!}
                         </div>
                     </div>
                 </div>

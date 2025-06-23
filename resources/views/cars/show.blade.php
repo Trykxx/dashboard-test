@@ -58,7 +58,7 @@
                                     </a>
 
                                     {{-- Bouton supprimer avec confirmation --}}
-                                    <form action="{{ route('home') }}" method="POST"
+                                    <form action="{{ route('cars.destroy', $car) }}" method="POST"
                                         onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce véhicule ?');">
                                         @csrf
                                         @method('DELETE')
@@ -73,4 +73,6 @@
                 </div>
             </div>
         </div>
+
+        @include('shared.flash')
     @endsection

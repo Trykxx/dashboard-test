@@ -114,4 +114,6 @@
             </div>
         </div>
     </div>
+
+    @include('shared.flash')
 @endsection

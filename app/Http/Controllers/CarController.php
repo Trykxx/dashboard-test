@@ -63,7 +63,7 @@ class CarController extends Controller
      */
     public function update(Request $request, Car $car)
     {
-        $data = $request->validated();
+        $data = $request->all();
         $car->update($data);
 
         return redirect()->route('cars.show', $car->id)->with('success', 'La voiture a été modifiée !');

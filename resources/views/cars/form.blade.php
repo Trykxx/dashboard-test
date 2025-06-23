@@ -1,6 +1,6 @@
 @extends('tablar::page')
 
-{{-- @section('title', $car->exists ? 'Editer une voiture' : 'Ajouter une nouvelle voiture') --}}
+@section('title', $car->exists ? 'Editer une voiture' : 'Ajouter une nouvelle voiture')
 
 @section('content')
     <div class="container">
@@ -9,8 +9,12 @@
                 <h3>Ajouter une voiture</h3>
             </div>
             <div class="card-body">
-                <form action="{{ route('cars.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ $car->exists ? route('cars.update', $car) : route('cars.store') }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
+                    @if ($car->exists)
+                        @method('PUT')
+                    @endif
 
                     @include('shared.input', [
                         'label' => 'Marque',
@@ -82,18 +86,30 @@
                     @include('shared.input', [
                         'label' => 'Description',
                         'name' => 'description',
-                        'value' => $car->kilometrage,
+                        'value' => $car->description,
                         'type' => 'textarea',
                     ])
 
-                    @include('shared.input', [
-                        'label' => 'Image',
-                        'name' => 'image_path',
-                        'value' => $car->image_path,
-                        'type' => 'file',
-                    ])
+                    @if ($car->image_path)
+                        <div class="mb-3">
+                            <label class="form-label">Image</label>
+                            <img src="{{ asset($car->image_path) }}" alt="Image voiture" width="150">
+                        </div>
+                    @else
+                        @include('shared.input', [
+                            'type' => 'file',
+                            'label' => 'Image',
+                            'name' => 'image_path',
+                        ])
+                    @endif
 
-                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    <button type="submit" class="btn btn-primary">
+                        @if ($car->exists)
+                            Modifier
+                        @else
+                            Enregistrer
+                        @endif
+                    </button>
                 </form>
             </div>
         </div>

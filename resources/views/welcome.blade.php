@@ -128,5 +128,6 @@
                 </div>
             </div>
         </div>
+        @include('shared.flash')
     </body>
 </html>

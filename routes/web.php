@@ -25,4 +25,7 @@ Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->nam
 Route::get('/cars/create', [CarController::class, 'create'])->name('cars.create');
 Route::post('/cars', [CarController::class, 'store'])->name('cars.store');
 Route::get('/cars/{car}', [CarController::class, 'show'])->name('cars.show');
+
 Route::get('/cars/edit/{car}', [CarController::class, 'edit'])->name('cars.edit');
+Route::put('/cars/{car}', [CarController::class, 'update'])->name('cars.update');
+Route::patch('/cars/{car}', [CarController::class, 'update'])->name('cars.update');

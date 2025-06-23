@@ -53,7 +53,7 @@
                                         liste</a>
                                 </div>
                                 <div class="d-flex justify-content-center gap-2 mt-2">
-                                    <a href="{{ route('home') }}" class="btn btn-primary">
+                                    <a href="{{ route('cars.edit', $car->id) }}" class="btn btn-primary">
                                         Modifier
                                     </a>
 

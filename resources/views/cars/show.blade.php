@@ -6,7 +6,6 @@
             <div class="col-md-8">
                 <div class="card shadow-sm">
                     <div class="row g-0">
-                        {{-- Image du véhicule --}}
                         <div class="col-md-5 d-flex align-items-center justify-content-center">
                                 @if (Str::startsWith($car->image_path, ['http', 'https']))
                                     <img src="{{ $car->image_path }}" alt="Photo {{ $car->marque }} {{ $car->modele }}">
@@ -55,7 +54,7 @@
                                 </div>
                                 <div class="d-flex justify-content-center gap-2 mt-2">
                                     <a href="{{ route('home') }}" class="btn btn-primary">
-                                        <i class="bi bi-pencil"></i> Modifier
+                                        Modifier
                                     </a>
 
                                     {{-- Bouton supprimer avec confirmation --}}
@@ -64,7 +63,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">
-                                            <i class="bi bi-trash"></i> Supprimer
+                                            Supprimer
                                         </button>
                                     </form>
                                 </div>

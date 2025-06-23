@@ -33,21 +33,21 @@ class CarController extends Controller
         $validated = $request->validated();
 
         if ($request->hasFile('image_path')) {
-            $path = $request->file('image_path')->store('public/voitures');
-            $validated['image_path'] = str_replace('public/', '', $path);
+            $path = $request->file('image_path')->store('assets/images/cars', 'public');
+            $validated['image_path'] = $path;
         }
 
         Car::create($validated);
 
-        return redirect()->route('cars.index')->with('success', 'Voiture ajoutée avec succès !');
+        return redirect()->route('home')->with('success', 'Voiture ajoutée avec succès !');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Car $car)
     {
-        //
+        return view('cars/show', ['car' => $car]);
     }
 
     /**

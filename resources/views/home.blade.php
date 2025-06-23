@@ -99,7 +99,7 @@
                                             <td><input class="form-check-input m-0 align-middle" type="checkbox"
                                                     aria-label="Select invoice"></td>
                                             <td><span class="text-muted">{{ $car->id }}</span></td>
-                                            <td><a href="invoice.html" class="text-reset"
+                                            <td><a href="{{ route('cars.show', $car->id)}}" class="text-reset"
                                                     tabindex="-1">{{ $car->marque }}</a></td>
                                             <td>{{ $car->modele }}</td>
                                             <td>{{ $car->annee }}</td>

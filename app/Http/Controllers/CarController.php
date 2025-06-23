@@ -9,6 +9,23 @@ use Illuminate\Http\Request;
 class CarController extends Controller
 {
     /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
+    {
+        // $query = Car::query();
+
+        // if ($request->has('search')) {
+        //     $search = $request->input('search');
+        //     $query->where('marque', 'like', "%{$search}%")
+        //         ->orWhere('modele', 'like', "%{$search}%");
+        // }
+
+        // $cars = $query->paginate(10);
+        return view('home', compact('cars'));
+    }
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create()
@@ -21,7 +38,6 @@ class CarController extends Controller
      */
     public function store(CarsFormRequest $request)
     {
-        // Les données sont déjà validées à ce stade
         $validated = $request->validated();
 
         if ($request->hasFile('image_path')) {

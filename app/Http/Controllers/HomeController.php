@@ -22,9 +22,16 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $cars = Car::paginate(10);
+         $query = Car::query();
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('marque', 'like', "%{$search}%")
+                ->orWhere('modele', 'like', "%{$search}%");
+        }
+        $cars = $query->paginate(10);
         return view('home', ['cars' => $cars]);
     }
 }

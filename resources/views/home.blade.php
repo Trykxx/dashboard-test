@@ -61,10 +61,12 @@
                                 </div>
                                 <div class="ms-auto text-muted">
                                     Rechercher :
-                                    <div class="ms-2 d-inline-block">
-                                        <input type="text" class="form-control form-control-sm"
-                                            aria-label="Search invoice">
-                                    </div>
+                                    <form method="GET" action="{{ route('home') }}" class="d-inline-block ms-2"
+                                        id="searchForm">
+                                        <input type="text" name="search" value="{{ request('search') }}"
+                                            class="form-control form-control-sm" aria-label="Search"
+                                            oninput="document.getElementById('searchForm').submit();">
+                                    </form>
                                 </div>
                             </div>
                         </div>

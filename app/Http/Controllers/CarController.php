@@ -21,7 +21,7 @@ class CarController extends Controller
      */
     public function create()
     {
-        return view('cars.create');
+        return view('cars.form', ['car' => new Car()]);
     }
 
     /**
@@ -53,17 +53,20 @@ class CarController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Car $car)
     {
-        //
+        return view('cars.form', ['car' => $car]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Car $car)
     {
-        //
+        $data = $request->validated();
+        $car->update($data);
+
+        return redirect()->route('cars.show', $car->id)->with('success', 'La voiture a été modifiée !');
     }
 
     /**

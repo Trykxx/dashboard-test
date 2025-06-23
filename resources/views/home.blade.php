@@ -112,8 +112,8 @@
                                             <td>{{ Str::limit($car->description, 50) }}</td>
                                             <td>{{ $car->created_at }}</td>
                                             <td>{{ $car->updated_at }}</td>
-                                            <td><button class="btn btn-primary">Modifier</button></td>
-                                            <td><button class="btn btn-danger">Supprimer</button></td>
+                                            <td><a href="{{ route('cars.edit', $car->id) }}" class="btn btn-primary">Modifier</a></td>
+                                            <td><a href="home" class="btn btn-danger">Supprimer</a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>

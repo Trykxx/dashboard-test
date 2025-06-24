@@ -49,18 +49,18 @@
                                     éléments
                                 </div>
                                 <div class="ms-auto text-muted">
-                                    Rechercher :
-                                    <form method="GET" action="{{ route('home') }}" class="d-inline-block ms-2"
-                                        id="searchForm">
-                                        <input type="text" name="search" value="{{ request('search') }}"
-                                            class="form-control form-control-sm" aria-label="Search">
+                                    <form method="GET" action="{{ route('home') }}" class="mb-3">
+                                        <div class="input-group input-group-sm gap-2">
+                                            <input type="text" name="search" class="form-control"
+                                                placeholder="Marque ou Modèle..." value="{{ request('search') }}">
+                                            <button class="btn btn-primary" type="submit">Rechercher</button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
                         <div class="table-responsive" id="carsList">
-                            @include('partials.cars_list', ['cars' => $cars])
-                            {{-- <table class="table card-table table-vcenter text-nowrap datatable">
+                            <table class="table card-table table-vcenter text-nowrap datatable">
                                 <thead>
                                     <tr>
                                         <th class="w-1">
@@ -118,7 +118,7 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-                            </table> --}}
+                            </table>
                         </div>
                         <div class="card-footer d-flex align-items-center">
                             {!! $cars->links('tablar::pagination') !!}
@@ -128,38 +128,4 @@
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#searchForm input[name="search"]').on('input', function() {
-                var searchVal = $(this).val();
-
-                $.ajax({
-                    url: '{{ route("cars.ajax-search") }}',
-                    data: {
-                        search: searchVal
-                    },
-                    success: function(data) {
-                        $('#carsList').html(data);
-                    }
-                });
-            });
-        });
-
-        $(document).on('click', '#carsList .pagination a', function(e) {
-            e.preventDefault();
-            var url = $(this).attr('href');
-            var searchVal = $('#searchForm input[name="search"]').val();
-
-            $.ajax({
-                url: url,
-                data: {
-                    search: searchVal
-                },
-                success: function(data) {
-                    $('#carsList').html(data);
-                }
-            });
-        });
-    </script>
 @endsection

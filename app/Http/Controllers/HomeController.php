@@ -31,23 +31,9 @@ class HomeController extends Controller
             $query->where('marque', 'like', "%{$search}%")
                 ->orWhere('modele', 'like', "%{$search}%");
         }
+
         $cars = $query->paginate(10);
+
         return view('home', ['cars' => $cars]);
-    }
-
-    public function ajaxSearch(Request $request)
-    {
-        $query = Car::query();
-
-        if ($request->has('search')) {
-            $search = $request->input('search');
-            $query->where('marque', 'like', "%{$search}%")
-                ->orWhere('modele', 'like', "%{$search}%");
-        }
-
-        $cars = $query->paginate(10);
-
-        // Vue partielle qui contient juste le tableau des résultats, à afficher dynamiquement :
-        return view('partials.cars_list', compact('cars'))->render();
     }
 }

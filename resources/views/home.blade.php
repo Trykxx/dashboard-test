@@ -1,4 +1,4 @@
-@extends('tablar::page')
+@extends('tablar::page', ['layout' =>'vertical'])
 
 @section('content')
     <!-- Page header -->
@@ -39,17 +39,20 @@
                             <h2 class="card-title">Liste de Voitures</h2>
                         </div>
                         <div class="card-body border-bottom py-3">
-                            <div class="d-flex">
-                                <div class="text-muted">
-                                    Afficher
-                                    <div class="mx-2 d-inline-block">
-                                        <input type="text" class="form-control form-control-sm" value="8"
-                                            size="3" aria-label="Invoices count">
-                                    </div>
-                                    éléments
-                                </div>
+                            <div class="d-flex align-items-center">
+                                <form method="GET" action="{{ route('home') }}">
+                                    <span class="ms-3 text-muted">
+                                        Afficher
+                                        <input type="number" min="1" name="per_page"
+                                            class="form-control form-control-sm d-inline-block"
+                                            value="{{ request('per_page', 10) }}" style="width: 60px; display: inline-block;"
+                                            aria-label="Nombre d'éléments par page" onchange="this.form.submit();">
+                                        éléments
+                                    </span>
+                                </form>
+
                                 <div class="ms-auto text-muted">
-                                    <form method="GET" action="{{ route('home') }}" class="mb-3">
+                                    <form method="GET" action="{{ route('home') }}" class="mb-0">
                                         <div class="input-group input-group-sm gap-2">
                                             <input type="text" name="search" class="form-control"
                                                 placeholder="Marque ou Modèle..." value="{{ request('search') }}">
@@ -121,7 +124,7 @@
                             </table>
                         </div>
                         <div class="card-footer d-flex align-items-center">
-                            {!! $cars->links('tablar::pagination') !!}
+                            {!! $cars->withQueryString()->links('tablar::pagination') !!}
                         </div>
                     </div>
                 </div>

@@ -13,15 +13,6 @@ class CarController extends Controller
      */
     public function index(Request $request)
     {
-        // $query = Car::query();
-
-        // if ($request->has('search')) {
-        //     $search = $request->input('search');
-        //     $query->where('marque', 'like', "%{$search}%")
-        //         ->orWhere('modele', 'like', "%{$search}%");
-        // }
-
-        // $cars = $query->paginate(10);
         return view('home', compact('cars'));
     }
 

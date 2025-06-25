@@ -24,6 +24,8 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+        $perPage = $request->input('per_page', 10);
+
         $query = Car::query();
 
         if ($request->has('search')) {
@@ -32,7 +34,7 @@ class HomeController extends Controller
                 ->orWhere('modele', 'like', "%{$search}%");
         }
 
-        $cars = $query->paginate(10);
+        $cars = $query->paginate($perPage);
 
         return view('home', ['cars' => $cars]);
     }

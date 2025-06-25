@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "735bfb6b5211a92aeaea831ba457b9d2",
+    "content-hash": "9596b4524dae5371d5f1b97a4be7081b",
     "packages": [
         {
             "name": "brick/math",
@@ -5440,6 +5440,75 @@
                 "source": "https://github.com/takielias/tablar/tree/10.0"
             },
             "time": "2024-02-26T03:28:45+00:00"
+        },
+        {
+            "name": "takielias/tablar-kit",
+            "version": "12.00",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/takielias/tablar-kit.git",
+                "reference": "465c244ba99f0fc41dc9d6f5167eb770c48be6b9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/takielias/tablar-kit/zipball/465c244ba99f0fc41dc9d6f5167eb770c48be6b9",
+                "reference": "465c244ba99f0fc41dc9d6f5167eb770c48be6b9",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/filesystem": "^10.0|^11.0|^12.0",
+                "illuminate/support": "^10.0|^11.0|^12.0",
+                "illuminate/view": "^10.0|^11.0|^12.0",
+                "nesbot/carbon": "^2.72.2|^3.0",
+                "takielias/tablar": "*"
+            },
+            "require-dev": {
+                "gajus/dindent": "^2.0",
+                "orchestra/testbench": "~9|~10",
+                "phpunit/phpunit": "^10.0|~11.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "TablarKit": "Takielias\\TablarKit\\Facades\\TablarKit"
+                    },
+                    "providers": [
+                        "Takielias\\TablarKit\\TablarKitServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Helpers/functions.php"
+                ],
+                "psr-4": {
+                    "Takielias\\TablarKit\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taki Elias",
+                    "email": "taki.elias@email.com",
+                    "homepage": "https://ebuz.xyz"
+                }
+            ],
+            "description": "The Elegance of Tablar Dashboard",
+            "homepage": "https://github.com/takielias/tablar-kit",
+            "keywords": [
+                "Tablar",
+                "TablarKit",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/takielias/tablar-kit/issues",
+                "source": "https://github.com/takielias/tablar-kit/tree/12.00"
+            },
+            "time": "2025-03-05T15:09:22+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

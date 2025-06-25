@@ -13,6 +13,8 @@
                 <!-- Page title actions -->
                 <div class="col-12 col-md-auto ms-auto d-print-none">
                     <div class="btn-list">
+                        <button id="export-xlsx" class="btn btn-success mb-2">Exporter en Excel</button>
+
                         <a href={{ route('cars.create') }} class="btn btn-primary d-none d-sm-inline-block">
                             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
@@ -127,4 +129,55 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Sélectionne le tableau
+            var tableHtml = document.querySelector('.table.card-table.table-vcenter.text-nowrap.datatable');
+
+            // 2. Récupère les titres de colonnes, sauf "Actions"
+            var ths = Array.from(tableHtml.querySelectorAll('thead th'));
+            var headers = ths.map(th => th.textContent.trim())
+                .filter(h => h !== 'Actions'); // On retire "Actions"
+
+            var actionColIndex = ths.findIndex(th => th.textContent.trim() === 'Actions');
+
+            // 3. Prépare les colonnes pour Tabulator
+            var columns = headers.map(h => ({
+                title: h,
+                field: h
+            }));
+
+            // 4. Récupère les données des lignes (sauf colonne "Actions")
+            var rows = Array.from(tableHtml.querySelectorAll('tbody tr')).map(tr => {
+                var tds = Array.from(tr.querySelectorAll('td'));
+                let row = {};
+                tds.forEach((td, idx) => {
+                    if (idx !== actionColIndex) {
+                        row[headers[idx < actionColIndex ? idx : idx - 1]] = td.textContent.trim();
+                    }
+                });
+                return row;
+            });
+
+            // 5. Initialise Tabulator (dans un DIV caché)
+            var exportDiv = document.createElement('div');
+            exportDiv.id = 'tabulator-export-div';
+            exportDiv.style.display = 'none';
+            document.body.appendChild(exportDiv);
+
+            var tabulatorTable = new Tabulator("#tabulator-export-div", {
+                data: rows,
+                columns: columns,
+                // Pas besoin d'afficher quoi que ce soit pour l'export
+            });
+
+            // 6. Gestion du bouton d'export Excel
+            document.getElementById('export-xlsx').addEventListener('click', function() {
+                tabulatorTable.download("xlsx", "export-voitures.xlsx", {
+                    sheetName: "Voitures"
+                });
+            });
+        });
+    </script>
 @endsection

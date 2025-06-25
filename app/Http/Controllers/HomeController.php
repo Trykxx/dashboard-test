@@ -28,10 +28,17 @@ class HomeController extends Controller
 
         $query = Car::query();
 
+        $sort = $request->input('sort', 'id');
+        $direction = $request->input('direction', 'desc');
+
         if ($request->has('search')) {
             $search = $request->input('search');
             $query->where('marque', 'like', "%{$search}%")
                 ->orWhere('modele', 'like', "%{$search}%");
+        }
+
+        if (in_array($sort, ['id', 'marque', 'modele', 'annee', 'couleur', 'nb_portes', 'prix', 'carburant', 'transmission', 'kilometrage', 'created_at', 'updated_at'])) {
+            $query->orderBy($sort, $direction);
         }
 
         $cars = $query->paginate($perPage);

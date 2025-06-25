@@ -1,4 +1,4 @@
-@extends('tablar::page', ['layout' =>'vertical'])
+@extends('tablar::page', ['layout' => 'vertical'])
 
 @section('content')
     <!-- Page header -->
@@ -45,7 +45,8 @@
                                         Afficher
                                         <input type="number" min="1" name="per_page"
                                             class="form-control form-control-sm d-inline-block"
-                                            value="{{ request('per_page', 10) }}" style="width: 60px; display: inline-block;"
+                                            value="{{ request('per_page', 10) }}"
+                                            style="width: 60px; display: inline-block;"
                                             aria-label="Nombre d'éléments par page" onchange="this.form.submit();">
                                         éléments
                                     </span>
@@ -66,32 +67,27 @@
                             <table class="table card-table table-vcenter text-nowrap datatable">
                                 <thead>
                                     <tr>
-                                        <th class="w-1">
-                                            <input class="form-check-input m-0 align-middle" type="checkbox"
-                                                aria-label="Select all invoices">
-                                        </th>
-                                        </th>
-                                        <th>ID</th>
-                                        <th>Marque</th>
-                                        <th>Modele</th>
-                                        <th>Annee</th>
-                                        <th>Couleur</th>
-                                        <th>Nb de portes</th>
-                                        <th>Prix</th>
-                                        <th>Carburant</th>
-                                        <th>Transmission</th>
-                                        <th>Kilometrage</th>
+                                        @include('shared.sortLink')
+
+                                        <th>{!! sort_link('id', 'ID') !!}</th>
+                                        <th>{!! sort_link('marque', 'Marque') !!}</th>
+                                        <th>{!! sort_link('modele', 'Modèle') !!}</th>
+                                        <th>{!! sort_link('annee', 'Année') !!}</th>
+                                        <th>{!! sort_link('couleur', 'Couleur') !!}</th>
+                                        <th>{!! sort_link('nb_portes', 'Nombre de portes') !!}</th>
+                                        <th>{!! sort_link('prix', 'Prix') !!}</th>
+                                        <th>{!! sort_link('carburant', 'Carburant') !!}</th>
+                                        <th>{!! sort_link('transmission', 'Transmission') !!}</th>
+                                        <th>{!! sort_link('kilometrage', 'Kilométrage') !!}</th>
                                         <th>Description</th>
-                                        <th>Date de creation</th>
-                                        <th>Date de modification</th>
+                                        <th>{!! sort_link('created_at', 'Date de création') !!}</th>
+                                        <th>{!! sort_link('updated_at', 'Date de modification') !!}</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($cars as $car)
                                         <tr>
-                                            <td><input class="form-check-input m-0 align-middle" type="checkbox"
-                                                    aria-label="Select invoice"></td>
                                             <td><span class="text-muted">{{ $car->id }}</span></td>
                                             <td><a href="{{ route('cars.show', $car->id) }}" class="text-reset"
                                                     tabindex="-1">{{ $car->marque }}</a></td>

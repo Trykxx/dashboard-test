@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CarsExport;
 use App\Http\Requests\CarsFormRequest;
 use App\Models\Car;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CarController extends Controller
 {
@@ -87,4 +89,10 @@ class CarController extends Controller
 
         return redirect()->route('home')->with('danger', 'Voiture supprimée avec succès !');
     }
+
+    // public function exportExcel()
+    // {
+    //     dd("Hello !");
+    //     return Excel::download(new CarsExport, 'voitures.xlsx');
+    // }
 }

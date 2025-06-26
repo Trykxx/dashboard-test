@@ -13,7 +13,11 @@
                 <!-- Page title actions -->
                 <div class="col-12 col-md-auto ms-auto d-print-none">
                     <div class="btn-list">
-                        <button id="export-xlsx" class="btn btn-success mb-2">Exporter en Excel</button>
+                        <a href="{{ route('export.cars') }}" class="btn btn-success mb-2">Exporter toutes les voitures (Excel)</a>
+                        {{-- <button onclick="window.location='{{ route('cars.export') }}'" class="btn btn-success mb-2">
+                            Exporter toutes les voitures (Excel)
+                        </button> --}}
+
 
                         <a href={{ route('cars.create') }} class="btn btn-primary d-none d-sm-inline-block">
                             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
@@ -130,7 +134,7 @@
         </div>
     </div>
 
-    <script>
+    {{-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             // 1. Sélectionne le tableau
             var tableHtml = document.querySelector('.table.card-table.table-vcenter.text-nowrap.datatable');
@@ -179,5 +183,5 @@
                 });
             });
         });
-    </script>
+    </script> --}}
 @endsection

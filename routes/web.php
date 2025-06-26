@@ -1,8 +1,10 @@
 <?php
 
+use App\Exports\CarsExport;
 use App\Http\Controllers\CarController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Facades\Excel;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +33,8 @@ Route::put('/cars/{car}', [CarController::class, 'update'])->name('cars.update')
 Route::patch('/cars/{car}', [CarController::class, 'update'])->name('cars.update');
 
 Route::delete('/cars/{car}', [CarController::class, 'destroy'])->name('cars.destroy');
+
+// Route::post('/cars/export-excel', [CarController::class, 'exportExcel'])->name('cars.download-excel');
+Route::get('/export/cars', function () {
+        return Excel::download(new CarsExport(), 'cars.xlsx');
+    })->name('export.cars');

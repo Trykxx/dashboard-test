@@ -36,5 +36,5 @@ Route::delete('/cars/{car}', [CarController::class, 'destroy'])->name('cars.dest
 
 // Route::post('/cars/export-excel', [CarController::class, 'exportExcel'])->name('cars.download-excel');
 Route::get('/export/cars', function () {
-        return Excel::download(new CarsExport(), 'cars.xlsx');
+        return Excel::download(new CarsExport, 'cars.xlsx');
     })->name('export.cars');

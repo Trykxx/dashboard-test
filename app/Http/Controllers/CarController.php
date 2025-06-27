@@ -73,12 +73,10 @@ class CarController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Car $car)
+    public function destroy(Request $request, Car $car)
     {
-        // dd($car->image_path);
 
         $relativeStoragePath = 'public/' . $car->image_path;
-
         $file = storage_path('app/' . $relativeStoragePath);
 
         if (file_exists($file)) {
@@ -90,9 +88,20 @@ class CarController extends Controller
         return redirect()->route('home')->with('danger', 'Voiture supprimée avec succès !');
     }
 
-    // public function exportExcel()
-    // {
-    //     dd("Hello !");
-    //     return Excel::download(new CarsExport, 'voitures.xlsx');
-    // }
+    public function destroyAjax(Request $request, Car $car)
+    {
+        $relativeStoragePath = 'public/' . $car->image_path;
+        $file = storage_path('app/' . $relativeStoragePath);
+
+        if (file_exists($file)) {
+            unlink($file);
+        }
+
+        $car->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Voiture supprimée avec succès !'
+        ]);
+    }
 }

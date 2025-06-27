@@ -13,7 +13,8 @@
                 <!-- Page title actions -->
                 <div class="col-12 col-md-auto ms-auto d-print-none">
                     <div class="btn-list">
-                        <a href="{{ route('export.cars') }}" class="btn btn-success mb-2">Exporter toutes les voitures (Excel)</a>
+                        <a href="{{ route('export.cars') }}" class="btn btn-success mb-2">Exporter toutes les voitures
+                            (Excel)</a>
                         {{-- <button onclick="window.location='{{ route('cars.export') }}'" class="btn btn-success mb-2">
                             Exporter toutes les voitures (Excel)
                         </button> --}}
@@ -93,7 +94,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($cars as $car)
-                                        <tr>
+                                        <tr id="tr_{{ $car->id }}">
                                             <td><span class="text-muted">{{ $car->id }}</span></td>
                                             <td><a href="{{ route('cars.show', $car->id) }}" class="text-reset"
                                                     tabindex="-1">{{ $car->marque }}</a></td>
@@ -111,8 +112,8 @@
                                             <td><a href="{{ route('cars.edit', $car->id) }}"
                                                     class="btn btn-primary">Modifier</a></td>
                                             <td>
-                                                <form action="{{ route('cars.destroy', $car) }}" method="POST"
-                                                    onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce véhicule ?');">
+                                                <form class="delete-car-form" data-car-id="{{ $car->id }}"
+                                                    data-url="{{ route('cars.destroy.ajax', $car) }}">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger">
@@ -133,4 +134,47 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            document.querySelectorAll('.delete-car-form').forEach(function(form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    // Alert
+                    if (!confirm('Êtes-vous sûr de vouloir supprimer ce véhicule ?')) {
+                        return;
+                    }
+
+                    const url = this.dataset.url;
+                    const button = this.querySelector('button');
+
+                    // Requête AJAX
+                    fetch(url, {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector(
+                                    'meta[name="csrf-token"]').getAttribute('content'),
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                this.closest('tr').remove();
+
+                                alert(data.message);
+                            } else {
+                                alert('Erreur lors de la suppression');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Erreur:', error);
+                            alert('Erreur lors de la suppression');
+                        });
+                });
+            });
+        });
+    </script>
 @endsection

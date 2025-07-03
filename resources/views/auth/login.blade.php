@@ -3,11 +3,10 @@
 @section('content')
     <div class="container container-tight py-4">
         <div class="text-center mb-1 mt-5">
-                <img src="{{ asset('/assets/images/LogoMeetpe.png') }}"
-                    style="
+            <img src="{{ asset('/assets/images/LogoMeetpe.png') }}" style="
         height: 100px;
         width: auto;"
-                     alt="Meetpe logo">
+                alt="Meetpe logo">
         </div>
         <div class="card card-md">
             <div class="card-body">
@@ -29,10 +28,11 @@
                         <div class="input-group input-group-flat">
                             <input type="password" name="password"
                                 class="form-control @error('password') is-invalid @enderror" placeholder="Mot de passe..."
-                                autocomplete="off">
+                                autocomplete="off" id="password-input">
                             <span class="input-group-text">
                                 <a href="#" class="link-secondary" title="Afficher le mot de passe"
-                                    data-bs-toggle="tooltip"><!-- Download SVG icon from http://tabler-icons.io/i/eye -->
+                                    data-bs-toggle="tooltip"
+                                    id="toggle-password"><!-- Download SVG icon from http://tabler-icons.io/i/eye -->
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                                         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                                         stroke-linecap="round" stroke-linejoin="round">
@@ -50,7 +50,7 @@
                     </div>
                     <div class="mb-2">
                         <label class="form-check">
-                            <input type="checkbox" class="form-check-input" />
+                            <input type="checkbox" name="remember" class="form-check-input" {{ old('remember') ? 'checked' : '' }}/>
                             <span class="form-check-label">Se souvenir de moi</span>
                         </label>
                     </div>
@@ -66,4 +66,18 @@
             </div>
         @endif
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let passwordInput = document.getElementById('password-input');
+            let togglePassword = document.getElementById('toggle-password');
+
+            if (passwordInput && togglePassword) {
+                togglePassword.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                });
+            }
+        });
+    </script>
 @endsection

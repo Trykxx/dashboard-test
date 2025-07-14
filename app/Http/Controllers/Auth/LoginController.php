@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -36,5 +37,19 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
+    }
+
+    public function login(LoginRequest $request)
+    {
+        $credentials = $request->only('email', 'password');
+        $remember = $request->boolean('remember');
+
+        if (auth()->attempt($credentials, $remember)) {
+            return redirect()->intended('/');
+        }
+
+        return back()->withErrors([
+            'email' => 'Identifiants incorrects.',
+        ])->withInput($request->only('email', 'remember'));
     }
 }

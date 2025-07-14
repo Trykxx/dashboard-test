@@ -24,7 +24,7 @@ Route::get('/', function () {
 });
 
 // Auth Routes
-Auth::routes();
+Auth::routes(); // Ajoute les routes d'authentification classiques
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');

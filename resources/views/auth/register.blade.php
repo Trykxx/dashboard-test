@@ -72,8 +72,8 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-check">
-                        <input type="checkbox" class="form-check-input" />
-                        <span class="form-check-label">Accepter les <a href="#" tabindex="-1">Conditions d'utilisation</a>.</span>
+                        <input type="checkbox" class="form-check-input" name="is_admin" value="1" {{ old('is_admin') ? 'checked' : '' }}/>
+                        Je veux être administrateur
                     </label>
                 </div>
                 <div class="form-footer">

@@ -45,7 +45,7 @@ class LoginController extends Controller
         $remember = $request->boolean('remember');
 
         if (auth()->attempt($credentials, $remember)) {
-            return redirect()->intended('/');
+            return redirect()->intended('/')->with('success', 'Connexion réussie !');
         }
 
         return back()->withErrors([

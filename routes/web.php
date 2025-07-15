@@ -26,7 +26,7 @@ Route::get('/', function () {
 // Auth Routes
 Auth::routes(); // Ajoute les routes d'authentification classiques
 
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::get('/cars/create', [CarController::class, 'create'])->name('cars.create');
